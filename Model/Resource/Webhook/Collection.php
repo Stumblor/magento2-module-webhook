@@ -5,7 +5,7 @@ namespace SweetTooth\Webhook\Model\Resource\Webhook;
 /**
  * Custom webhook collection
  */
-class Collection extends \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
+class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
     /**
      * Store Id

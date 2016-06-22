@@ -5,7 +5,7 @@ namespace SweetTooth\Webhook\Model\Resource;
 /**
  * Custom webhook resource model
  */
-class Webhook extends \Magento\Framework\Model\Resource\Db\AbstractDb
+class Webhook extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     /**
      * Constructor

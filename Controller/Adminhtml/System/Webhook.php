@@ -3,6 +3,7 @@
 namespace SweetTooth\Webhook\Controller\Adminhtml\System;
 
 use Magento\Backend\App\Action;
+use Magento\Framework\App\ResponseInterface;
 
 /**
  * Webhooks admin controller
@@ -100,5 +101,16 @@ class Webhook extends Action
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed('SweetTooth_Webhook::webhook');
+    }
+
+    /**
+     * Dispatch request
+     *
+     * @return \Magento\Framework\Controller\ResultInterface|ResponseInterface
+     * @throws \Magento\Framework\Exception\NotFoundException
+     */
+    public function execute()
+    {
+        return $this->createPage();
     }
 }

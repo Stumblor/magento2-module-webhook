@@ -11,7 +11,7 @@ class Validate extends \SweetTooth\Webhook\Controller\Adminhtml\System\Webhook
      */
     public function execute()
     {
-        $response = new \Magento\Framework\Object(['error' => false]);
+        $response = new \Magento\Framework\DataObject(['error' => false]);
         $webhook = $this->_initWebhook();
         $webhook->addData($this->getRequest()->getPost('webhook'));
         $result = $webhook->validate();

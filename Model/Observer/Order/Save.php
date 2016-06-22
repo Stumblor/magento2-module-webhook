@@ -30,4 +30,5 @@ class Save extends \SweetTooth\Webhook\Model\Observer\WebhookAbstract
             'order' => $order->getData()
         ];
     }
+
 }

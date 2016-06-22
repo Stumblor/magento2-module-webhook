@@ -3,11 +3,12 @@
 namespace SweetTooth\Webhook\Model\Observer;
 
 use Magento\Framework\Event\Observer;
+use Magento\Framework\Event\ObserverInterface;
 
 /**
  * Class Customer
  */
-class WebhookAbstract
+class WebhookAbstract implements ObserverInterface
 {
     /**
      * @var Logger
@@ -52,7 +53,7 @@ class WebhookAbstract
      * @param Observer $observer
      * @return void
      */
-    public function dispatch(Observer $observer)
+    public function execute(Observer $observer)
     {
         $eventCode = $this->_getWebhookEvent();
         $eventData = $this->_getWebhookData($observer);
