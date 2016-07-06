@@ -10,6 +10,10 @@ use Magento\Framework\Event\ObserverInterface;
  */
 class WebhookAbstract implements ObserverInterface
 {
+    const MAGENTO_HEADER_EVENT_NAME = 'X-Magento-Topic';
+    const MAGENTO_HEADER_KEY_NAME = 'X_MAGENTO_HMAC_SHA256';
+    const MAGENTO_SHOP_DOMAIN = 'X-Magento-Shop-Domain';
+
     /**
      * @var Logger
      */
@@ -32,8 +36,10 @@ class WebhookAbstract implements ObserverInterface
      */
     protected $_webhookFactory;
 
+    protected $_secretKey = 'ce4d48d07e7c4c287265bae194e7134fc869ddc435c70daff2803949c1077462';
+
     /**
-     * @param \Psr\Logger\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
@@ -66,7 +72,8 @@ class WebhookAbstract implements ObserverInterface
         $webhooks = $this->_webhookFactory
             ->create()
             ->getCollection()
-            ->addFieldToFilter('event', $eventCode);
+            ->addFieldToFilter('event', $eventCode)
+            ->getItems();
 
         foreach($webhooks as $webhook)
         {
@@ -80,7 +87,15 @@ class WebhookAbstract implements ObserverInterface
 
         $bodyJson = $this->_jsonHelper->jsonEncode($body);
 
-        $headers = ["Content-Type: application/json"];
+        $magentoKeyNameValue = base64_encode(hash_hmac('sha256', $bodyJson, $this->_secretKey, true));
+
+        $headers = [
+                        "Content-Type: application/json",
+                        WebhookAbstract::MAGENTO_HEADER_EVENT_NAME.": orders/update",
+                        WebhookAbstract::MAGENTO_HEADER_KEY_NAME.": ".$magentoKeyNameValue,
+                        WebhookAbstract::MAGENTO_SHOP_DOMAIN.": ".Mage::getBaseUrl()
+                    ];
+
         $this->_curlAdapter->write('POST', $url, '1.1', $headers, $bodyJson);
         $this->_curlAdapter->read();
         $this->_curlAdapter->close();
