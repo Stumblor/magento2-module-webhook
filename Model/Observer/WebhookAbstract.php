@@ -92,12 +92,14 @@ class WebhookAbstract implements ObserverInterface
 
         $magentoKeyNameValue = base64_encode(hash_hmac('sha256', $bodyJson, $this->_secretKey, true));
 
+        $realHostUrl = parse_url($this->_storeManager->getStore()->getBaseUrl());
+
         $headers = [
-                        "Content-Type: application/json",
-                        WebhookAbstract::MAGENTO_HEADER_EVENT_NAME.": orders/update",
-                        WebhookAbstract::MAGENTO_HEADER_KEY_NAME.": ".$magentoKeyNameValue,
-                        WebhookAbstract::MAGENTO_SHOP_DOMAIN.": ".$this->_storeManager->getStore()->getBaseUrl()
-                    ];
+            "Content-Type: application/json",
+            WebhookAbstract::MAGENTO_HEADER_EVENT_NAME.": orders/update",
+            WebhookAbstract::MAGENTO_HEADER_KEY_NAME.": ".$magentoKeyNameValue,
+            WebhookAbstract::MAGENTO_SHOP_DOMAIN.": ".$realHostUrl['host']
+        ];
 
         $this->_curlAdapter->write('POST', $url, '1.1', $headers, $bodyJson);
         $this->_curlAdapter->read();
