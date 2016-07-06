@@ -90,7 +90,7 @@ class WebhookAbstract implements ObserverInterface
 
         $bodyJson = $this->_jsonHelper->jsonEncode($body);
 
-        $magentoKeyNameValue = base64_encode(hash_hmac('sha256', $bodyJson, $this->_secretKey, true));
+        $magentoKeyNameValue = base64_encode(hash_hmac('sha256', $body, $this->_secretKey, true));
 
         $realHostUrl = parse_url($this->_storeManager->getStore()->getBaseUrl());
 
