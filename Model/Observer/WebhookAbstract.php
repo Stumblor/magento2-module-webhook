@@ -47,7 +47,7 @@ class WebhookAbstract implements ObserverInterface
         \Magento\Framework\HTTP\Adapter\Curl $curlAdapter,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         \SweetTooth\Webhook\Model\WebhookFactory $webhookFactory,
-        StoreManagerInterface $storeManagerInterface
+        \Magento\Store\Model\StoreManagerInterface $storeManagerInterface
     ) {
         $this->_logger = $logger;
         $this->_curlAdapter = $curlAdapter;
