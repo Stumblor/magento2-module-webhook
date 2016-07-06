@@ -4,6 +4,7 @@ namespace SweetTooth\Webhook\Model\Observer;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class Customer
@@ -45,12 +46,14 @@ class WebhookAbstract implements ObserverInterface
         \Psr\Log\LoggerInterface $logger,
         \Magento\Framework\HTTP\Adapter\Curl $curlAdapter,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
-        \SweetTooth\Webhook\Model\WebhookFactory $webhookFactory
+        \SweetTooth\Webhook\Model\WebhookFactory $webhookFactory,
+        StoreManagerInterface $storeManagerInterface
     ) {
         $this->_logger = $logger;
         $this->_curlAdapter = $curlAdapter;
         $this->_jsonHelper = $jsonHelper;
         $this->_webhookFactory = $webhookFactory;
+        $this->_storeManager = $storeManagerInterface;
     }
 
     /**
@@ -93,7 +96,7 @@ class WebhookAbstract implements ObserverInterface
                         "Content-Type: application/json",
                         WebhookAbstract::MAGENTO_HEADER_EVENT_NAME.": orders/update",
                         WebhookAbstract::MAGENTO_HEADER_KEY_NAME.": ".$magentoKeyNameValue,
-                        WebhookAbstract::MAGENTO_SHOP_DOMAIN.": ".Mage::getBaseUrl()
+                        WebhookAbstract::MAGENTO_SHOP_DOMAIN.": ".$this->_storeManager->getStore()->getBaseUrl()
                     ];
 
         $this->_curlAdapter->write('POST', $url, '1.1', $headers, $bodyJson);
