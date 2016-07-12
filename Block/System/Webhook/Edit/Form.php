@@ -53,6 +53,8 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                     'product/deleted' => 'Product Deleted',
                     'order/updated' => 'Order Updated',
                     'order/deleted' => 'Order Deleted',
+                    'invoice/updated' => 'Invoice Updated',
+                    'shipment/updated' => 'Shipment Updated',
                 ]
             ]
         );

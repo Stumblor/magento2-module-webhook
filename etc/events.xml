@@ -15,6 +15,12 @@
     <event name="sales_order_place_after">
         <observer name="sales_order_save_after_sweettooth_webhook_observer" instance="SweetTooth\Webhook\Model\Observer\Order\Save" />
     </event>
+    <event name="sales_order_invoice_save_after">
+        <observer name="sales_order_invoice_save_after_sweettooth_webhook_observer" instance="SweetTooth\Webhook\Model\Observer\Order\Invoice" />
+    </event>
+    <event name="sales_order_shipment_save_after">
+        <observer name="sales_order_shipment_save_after_sweettooth_webhook_observer" instance="SweetTooth\Webhook\Model\Observer\Order\Shipment" />
+    </event>
     <event name="sales_order_delete_after">
         <observer name="sales_order_delete_after_sweettooth_webhook_observer" instance="SweetTooth\Webhook\Model\Observer\Order\Delete" />
     </event>
