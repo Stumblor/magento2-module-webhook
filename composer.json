@@ -10,5 +10,13 @@
     },
     "type": "magento2-module",
     "version": "0.2.0",
-    "license": "MIT"
+    "license": "MIT",
+     "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "SweetTooth\\Webhook\\": "./"
+        }
+    }
 }
