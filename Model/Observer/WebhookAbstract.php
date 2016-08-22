@@ -12,6 +12,8 @@ use Magento\Store\Model\StoreManagerInterface;
 class WebhookAbstract implements ObserverInterface
 {
     const MAGENTO_HEADER_EVENT_NAME = 'X-Magento-Topic';
+    // previously it was X_MAGENTO_HMAC_SHA256 so it was not passing in header
+    // I have changed it to watchtower end as well
     const MAGENTO_HEADER_KEY_NAME = 'X-MAGENTO-HMAC-SHA256';
     const MAGENTO_SHOP_DOMAIN = 'X-Magento-Shop-Domain';
 
