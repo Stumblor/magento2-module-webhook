@@ -12,7 +12,7 @@ use Magento\Store\Model\StoreManagerInterface;
 class WebhookAbstract implements ObserverInterface
 {
     const MAGENTO_HEADER_EVENT_NAME = 'X-Magento-Topic';
-    const MAGENTO_HEADER_KEY_NAME = 'X_MAGENTO_HMAC_SHA256';
+    const MAGENTO_HEADER_KEY_NAME = 'X-MAGENTO-HMAC-SHA256';
     const MAGENTO_SHOP_DOMAIN = 'X-Magento-Shop-Domain';
 
     /**
@@ -94,9 +94,14 @@ class WebhookAbstract implements ObserverInterface
 
         $realHostUrl = parse_url($this->_storeManager->getStore()->getBaseUrl());
 
+        /*
+         * As on every event it was passing fix name so I have made it dynamic
+         * it was like that previously
+         * WebhookAbstract::MAGENTO_HEADER_EVENT_NAME.": orders/update"
+         */
         $headers = [
             "Content-Type: application/json",
-            WebhookAbstract::MAGENTO_HEADER_EVENT_NAME.": orders/update",
+            WebhookAbstract::MAGENTO_HEADER_EVENT_NAME.$this->_getWebhookEvent(),
             WebhookAbstract::MAGENTO_HEADER_KEY_NAME.": ".$magentoKeyNameValue,
             WebhookAbstract::MAGENTO_SHOP_DOMAIN.": ".$realHostUrl['host']
         ];
