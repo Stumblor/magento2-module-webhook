@@ -10,13 +10,5 @@
     },
     "type": "magento2-module",
     "version": "0.2.0",
-    "license": "MIT",
-    "extra": {
-        "map": [
-            [
-                "*",
-                "SweetTooth/Webhook"
-            ]
-        ]
-    }
+    "license": "MIT"
 }
