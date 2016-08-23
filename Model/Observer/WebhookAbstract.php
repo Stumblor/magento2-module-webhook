@@ -103,7 +103,7 @@ class WebhookAbstract implements ObserverInterface
          */
         $headers = [
             "Content-Type: application/json",
-            WebhookAbstract::MAGENTO_HEADER_EVENT_NAME.$this->_getWebhookEvent(),
+            WebhookAbstract::MAGENTO_HEADER_EVENT_NAME.": ".$this->_getWebhookEvent(),
             WebhookAbstract::MAGENTO_HEADER_KEY_NAME.": ".$magentoKeyNameValue,
             WebhookAbstract::MAGENTO_SHOP_DOMAIN.": ".$realHostUrl['host']
         ];
