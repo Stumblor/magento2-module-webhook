@@ -1,0 +1,17 @@
+/.buildpath
+/.cache
+/.metadata
+/.project
+/.settings
+atlassian*
+/nbproject
+/sitemap
+/.idea
+/.gitattributes
+/i18n/magento
+
+/Test
+
+!/composer.json
+!/composer.lock
+!/README.md
